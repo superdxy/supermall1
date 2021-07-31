@@ -1,47 +1,41 @@
-<!--
- * @Author: your name
- * @Date: 2021-07-19 20:27:57
- * @LastEditTime: 2021-07-20 10:15:44
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \tabar\src\components\tabbar\TabBaritem.vue
--->
 
 <template>
-  <div class="tab-bar-item" @click="iteamClick">
-    <slot v-if="!isActive" name="item-icon"></slot>
-    <slot v-else name="item-icon-active"></slot>
-    <div :class="{active:isActive}"><slot name="item-text"></slot></div>
+  <div class="tab-bar-item" @click="btnclick">
+    <div v-if="!Active"><slot name="tabbar-tupian"></slot></div>
+    <div v-else><slot name="tabbar-tupian-active"> </slot></div>
+    <div :style="activeStyle"><slot name="tabbar-xinxi"></slot></div>
   </div>
 </template>
 
 <script>
 export default {
   name: "TabBarItem",
-  props:{
-    path:String,
-    activecolor:{
-      type:String,
-      default:'red'
-    }
+  props: {
+    path: String,
+    activeColor: {
+      type: String,
+      default: "red",
+    },
   },
- data(){
-     return{
-         isActive:true,
-         path:"/home"
-     }
- },
- computed:{
-   isActive(){
-     return this.$$router.path.indexOf(this.path) !== -1
-   }
- },
- methods:{
-   iteamClick(){
-     console.log('iteamClick');
-     this.$router.replace(this.path)
-   }
- }
+  data() {
+    return {
+      /*  isActive:true */
+    };
+  },
+  methods: {
+    btnclick() {
+      console.log("btnclick");
+      this.$router.replace(this.path);
+    },
+  },
+  computed: {
+    Active() {
+      return this.$route.path.indexOf(this.path) !== -1;
+    },
+    activeStyle() {
+      return this.Active ? { color: this.activeColor } : {};
+    },
+  },
 };
 </script>
 <style>
@@ -51,13 +45,12 @@ export default {
   height: 49px;
   font-size: 14px;
 }
+
 .tab-bar-item img {
-  width: 12px;
-  height: 12px;
+  width: 24px;
+  height: 24px;
+  margin-top: 3px;
   vertical-align: middle;
-}
-.active{
-    color: red;
+  margin-bottom: 2px;
 }
 </style>
-
